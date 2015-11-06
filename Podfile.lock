@@ -1,0 +1,23 @@
+PODS:
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
+  - MBProgressHUD (0.9.1)
+  - MJRefresh (2.4.12)
+  - skpsmtpmessage (0.0.1)
+
+DEPENDENCIES:
+  - FMDB
+  - MBProgressHUD (~> 0.9.1)
+  - MJRefresh
+  - skpsmtpmessage
+
+SPEC CHECKSUMS:
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MJRefresh: ca8e9589895977df32d379d46e6b8a5450b3ff44
+  skpsmtpmessage: f6e913380c784dd8d4a9f83c8790a302445a5e05
+
+COCOAPODS: 0.38.2
