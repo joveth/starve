@@ -111,7 +111,7 @@
         testMsg.pass = @"funny_ba@163";
     }
     testMsg.wantsSecure = YES;
-    testMsg.subject = @"IOS itog  Mail ";
+    testMsg.subject = @"IOS starve  Mail ";
     testMsg.delegate = self;
     NSDictionary *plainPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain",kSKPSMTPPartContentTypeKey,
                                [NSString stringWithCString:[msg.text UTF8String] encoding:NSUTF8StringEncoding],kSKPSMTPPartMessageKey,@"8bit",kSKPSMTPPartContentTransferEncodingKey,nil];

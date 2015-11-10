@@ -221,6 +221,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DataBean *bean = [list objectAtIndex:indexPath.row];
     [ShareData shareInstance].bean=bean;
+    [ShareData shareInstance].urltype=nil;
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
     backItem.tintColor=[UIColor whiteColor];
     [self.navigationItem setBackBarButtonItem:backItem];

@@ -23,7 +23,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=[ShareData shareInstance].bean.name;
+    
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
     HUD.labelText = @"加载中...";
@@ -37,10 +37,18 @@
     req = [NSURLRequest requestWithURL:url];
     webview.delegate=self;
     [self.view addSubview:webview];
+    if(![ShareData shareInstance].urltype){
+        self.title=[ShareData shareInstance].bean.name;
+    }
     self.view.backgroundColor=[UIColor whiteColor];
 }
 -(void)viewDidAppear:(BOOL)animated{
-    [webview loadHTMLString:html baseURL:baseURL];
+    if([ShareData shareInstance].urltype){
+        [webview loadRequest:req];
+    }else{
+        [webview loadHTMLString:html baseURL:baseURL];
+    }
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

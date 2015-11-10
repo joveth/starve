@@ -262,7 +262,7 @@ static const NSString *TB_MODSEED = @"tb_modseed";
         bean.name = dict[@"name"];
         bean.enName = dict[@"enname"];
         bean.content = dict[@"content"];
-        bean.positon = dict[@"positon"];
+        bean.position = dict[@"position"];
         bean.p1 = dict[@"p1"];
         bean.p2 = dict[@"p2"];
         bean.p3 = dict[@"p3"];
@@ -280,6 +280,110 @@ static const NSString *TB_MODSEED = @"tb_modseed";
     [db close];
     return ret;
 }
+-(NSMutableArray *)getStarves{
+    NSMutableArray *ret = [[NSMutableArray alloc] init];
+    if(![db open])
+    {
+        return ret;
+    }
+    FMResultSet *rs = [db executeQuery:[NSString stringWithFormat:@"select * from %@  ",TB_STARVE]];
+    DataBean *bean;
+    while ([rs next]) {
+        NSDictionary *dict = [rs resultDictionary];
+        bean = [[DataBean alloc] init];
+        bean.sid = dict[@"id"];
+        bean.image = dict[@"image"];
+        bean.name = dict[@"name"];
+        bean.enName = dict[@"enname"];
+        bean.content = dict[@"content"];
+        bean.position = dict[@"position"];
+        bean.p1 = dict[@"p1"];
+        bean.p2 = dict[@"p2"];
+        bean.p3 = dict[@"p3"];
+        bean.p4 = dict[@"p4"];
+        bean.n1 = dict[@"n1"];
+        bean.n2 = dict[@"n2"];
+        bean.n3 = dict[@"n3"];
+        bean.n4 = dict[@"n4"];
+        bean.html = dict[@"html"];
+        bean.tag=dict[@"tag"];
+        bean.type=dict[@"type"];
+        [ret addObject:bean];
+    }
+    [rs close];
+    [db close];
+    return ret;
+}
+-(NSMutableArray *)getStarveByType:(NSString *)type andTag:(NSString *)tag{
+    NSMutableArray *ret = [[NSMutableArray alloc] init];
+    if(![db open])
+    {
+        return ret;
+    }
+    FMResultSet *rs = [db executeQuery:[NSString stringWithFormat:@"select * from %@  where type=? and tag=? ",TB_STARVE],type,tag];
+    DataBean *bean;
+    while ([rs next]) {
+        NSDictionary *dict = [rs resultDictionary];
+        bean = [[DataBean alloc] init];
+        bean.sid = dict[@"id"];
+        bean.image = dict[@"image"];
+        bean.name = dict[@"name"];
+        bean.enName = dict[@"enname"];
+        bean.content = dict[@"content"];
+        bean.position = dict[@"position"];
+        bean.p1 = dict[@"p1"];
+        bean.p2 = dict[@"p2"];
+        bean.p3 = dict[@"p3"];
+        bean.p4 = dict[@"p4"];
+        bean.n1 = dict[@"n1"];
+        bean.n2 = dict[@"n2"];
+        bean.n3 = dict[@"n3"];
+        bean.n4 = dict[@"n4"];
+        bean.html = dict[@"html"];
+        bean.tag=dict[@"tag"];
+        bean.type=dict[@"type"];
+        [ret addObject:bean];
+    }
+    [rs close];
+    [db close];
+    return ret;
+    
+}
+-(NSMutableArray *)getStarveByType:(NSString *)type andKey:(NSString *)key{
+    NSMutableArray *ret = [[NSMutableArray alloc] init];
+    if(![db open])
+    {
+        return ret;
+    }
+    FMResultSet *rs = [db executeQuery:[NSString stringWithFormat:@"select * from %@  where type=?  and (enname like '%%%@%%' or  name like '%%%@%%') ",TB_STARVE,key,key],type];
+    DataBean *bean;
+    while ([rs next]) {
+        NSDictionary *dict = [rs resultDictionary];
+        bean = [[DataBean alloc] init];
+        bean.sid = dict[@"id"];
+        bean.image = dict[@"image"];
+        bean.name = dict[@"name"];
+        bean.enName = dict[@"enname"];
+        bean.content = dict[@"content"];
+        bean.position = dict[@"position"];
+        bean.p1 = dict[@"p1"];
+        bean.p2 = dict[@"p2"];
+        bean.p3 = dict[@"p3"];
+        bean.p4 = dict[@"p4"];
+        bean.n1 = dict[@"n1"];
+        bean.n2 = dict[@"n2"];
+        bean.n3 = dict[@"n3"];
+        bean.n4 = dict[@"n4"];
+        bean.html = dict[@"html"];
+        bean.tag=dict[@"tag"];
+        bean.type=dict[@"type"];
+        [ret addObject:bean];
+    }
+    [rs close];
+    [db close];
+    return ret;
+}
+
 -(NSMutableArray *)getModOrSeed:(NSString *)type{
     NSMutableArray *ret = [[NSMutableArray alloc] init];
     if(![db open])

@@ -12,6 +12,8 @@
 #import "ShareData.h"
 #import "MBProgressHUD.h"
 #import "DataBean.h"
-@interface AnimalController : UITableViewController
+#import "PopoverView.h"
+
+@interface AnimalController : UITableViewController<PopoverViewDelegate,UISearchResultsUpdating>
 
 @end

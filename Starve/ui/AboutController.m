@@ -99,6 +99,6 @@
         return 44;
     }
     CGSize size = [desc sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]] constrainedToSize:CGSizeMake(self.view.frame.size.width-16, 1000) lineBreakMode:NSLineBreakByWordWrapping];
-    return size.height;
+    return size.height+100;
 }
 @end

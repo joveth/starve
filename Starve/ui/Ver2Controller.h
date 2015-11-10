@@ -12,7 +12,13 @@
 #import "AnimalController.h"
 #import "AboutController.h"
 #import "MessageViewController.h"
-
+#import "FoodController.h"
+#import "ToolController.h"
+#import "FoodBaseController.h"
+#import "BaseMetrController.h"
+#import "QuickLookController.h"
+#import "WebController.h"
+#import "TutController.h"
 @interface Ver2Controller : UIViewController<UIGestureRecognizerDelegate>
 
 @end

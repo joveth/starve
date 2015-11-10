@@ -11,7 +11,7 @@
 @interface DataBean : NSObject
 @property(nonatomic,copy)NSString *sid;
 @property(nonatomic,copy)NSString *image;
-@property(nonatomic,copy)NSString *positon;
+@property(nonatomic,copy)NSString *position;
 @property(nonatomic,copy)NSString *name;
 @property(nonatomic,copy)NSString *enName;
 @property(nonatomic,copy)NSString *content;

@@ -148,7 +148,7 @@
     [b4 addGestureRecognizer:tap4];
     [topView addSubview:b4];
     
-    temImg=CGImageCreateWithImageInRect(img.CGImage, CGRectMake(1536, 448, 64, 64));
+    temImg=CGImageCreateWithImageInRect(img.CGImage, CGRectMake(512, 64, 64, 64));
     //得到新的图片
     UIImage *pic4 = [UIImage imageWithCGImage:temImg];
     UIView *b5 = [[UIView alloc] initWithFrame:CGRectMake(avgWidth*2, 100, avgWidth, 90)];
@@ -158,7 +158,7 @@
     l5.font=[UIFont systemFontOfSize:16];
     l5.textColor=[UIColor whiteColor];
     l5.textAlignment=NSTextAlignmentCenter;
-    l5.text=@"全览";
+    l5.text=@"食材";
     [b5 addSubview:i5];
     [b5 addSubview:l5];
     b5.tag=tag++;
@@ -209,7 +209,7 @@
     l8.font=[UIFont systemFontOfSize:16];
     l8.textColor=[UIColor blackColor];
     l8.textAlignment=NSTextAlignmentCenter;
-    l8.text=@"全物细览";
+    l8.text=@"全物速览";
     [b8 addSubview:i8];
     [b8 addSubview:l8];
     b8.tag=tag++;
@@ -219,7 +219,7 @@
     [b8 addGestureRecognizer:tap8];
     [content addSubview:b8];
     
-    NSString *temp=@"看不见的" ;
+    NSString *temp=@"更新计划" ;
     CGSize size=[temp sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont fontWithName:@"Arial" size:14.0f] forKey:NSFontAttributeName]];
     CGFloat x = avgWidth - size.width-30;
     UIView *other0 = [[UIView alloc] initWithFrame:CGRectMake(0, 2, avgWidth, 40)];
@@ -326,50 +326,53 @@
             break;
         }
         case 3:{
-//            SmallController *show = [[SmallController alloc] init];
-//            [self.navigationController pushViewController:show animated:YES];
+            FoodController *show = [[FoodController alloc] init];
+            [self.navigationController pushViewController:show animated:YES];
             break;
         }
         case 4:{
-//            ModController *show = [[ModController alloc] init];
-//            [self.navigationController pushViewController:show animated:YES];
+            BaseMetrController *show = [[BaseMetrController alloc] init];
+            [self.navigationController pushViewController:show animated:YES];
             break;
         }
         case 5:{
-//            SeedController *show = [[SeedController alloc] init];
-//            [self.navigationController pushViewController:show animated:YES];
-             break;
+            ToolController *show = [[ToolController alloc] init];
+            [self.navigationController pushViewController:show animated:YES];
+            break;
         }
         case 6:{
-//            WebController *show = [[WebController alloc] init];
-//            [ShareData shareInstance].urltype=@"http://joveth.github.io/isaac_new/story.html";
-//            show.title=@"以撒的故事";
-//            [self.navigationController pushViewController:show animated:YES];
-             break;
+            FoodBaseController *show = [[FoodBaseController alloc] init];
+            [self.navigationController pushViewController:show animated:YES];
+            break;
         }
         case 7:{
-//            [ShareData shareInstance].type=@"1";
-//            AboutSomething *show = [[AboutSomething alloc] init];
-//            [self.navigationController pushViewController:show animated:YES];
+            TutController *show = [[TutController alloc] init];
+            [self.navigationController pushViewController:show animated:YES];
             break;
         }
         case 8:{
-//            [ShareData shareInstance].type=@"2";
-//            AboutSomething *show = [[AboutSomething alloc] init];
-//            [self.navigationController pushViewController:show animated:YES];
-            break;
+            WebController *show = [[WebController alloc] init];
+            [ShareData shareInstance].urltype=nil;
+            DataBean *bean = [[DataBean alloc] init];
+            bean.html =@"baseinfor";
+            bean.name=@"基础说明";
+            [ShareData shareInstance].bean=bean;
+            [self.navigationController pushViewController:show animated:YES];
             break;
         }
         case 9:{
-//            [ShareData shareInstance].type=@"3";
-//            AboutSomething *show = [[AboutSomething alloc] init];
-//            [self.navigationController pushViewController:show animated:YES];
+            UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+            [flowLayout setItemSize:CGSizeMake([UIScreen mainScreen].applicationFrame.size.width/4,60)];
+            [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+            QuickLookController *show = [[QuickLookController alloc] initWithCollectionViewLayout:flowLayout];
+            [self.navigationController pushViewController:show animated:YES];
             break;
         }
         case 10:{
-//            MoreController *show =[[MoreController alloc] init];
-//            show.title=@"还有更多";
-//            [self.navigationController pushViewController:show animated:YES];
+            WebController *show = [[WebController alloc] init];
+            [ShareData shareInstance].urltype=@"http://joveth.github.io/starve";
+            show.title=@"更新与计划";
+            [self.navigationController pushViewController:show animated:YES];
             break;
         }
         case 11:{

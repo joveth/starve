@@ -19,22 +19,69 @@
     CGFloat width;
     BOOL flag;
     UIBarButtonItem *rightItem;
+    UISearchController *searchController;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    db = [DBHelper sharedInstance];
-    self.title=@"生物大全";
-    list = [[NSMutableArray alloc] init];
-    rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"switch"] style:UIBarButtonItemStyleBordered target:self action:@selector(showHint:)];
-    width = [UIScreen mainScreen].applicationFrame.size.width-55;
-    rightItem.tintColor=[UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem =rightItem;
     hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:hud];
     hud.labelText = @"加载中...";
-    self.tableView.tableFooterView=[[UIView alloc] init];
     [hud show:YES];
+    db = [DBHelper sharedInstance];
+    self.title=@"生物大全";
+    list = [[NSMutableArray alloc] init];
+    rightItem = ({
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [button setBackgroundImage:[UIImage imageNamed:@"more2"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        barButtonItem;
+    });
+    rightItem.tintColor=[UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem =rightItem;
+    width = [UIScreen mainScreen].applicationFrame.size.width-55;
+    self.tableView.tableFooterView=[[UIView alloc] init];
+    searchController= [[UISearchController alloc] initWithSearchResultsController:nil];
+    searchController.searchResultsUpdater = self;
+    searchController.dimsBackgroundDuringPresentation = YES;
+    searchController.hidesNavigationBarDuringPresentation = NO;
+    searchController.searchBar.frame = CGRectMake(searchController.searchBar.frame.origin.x,searchController.searchBar.frame.origin.y, searchController.searchBar.frame.size.width, 44.0);
+    searchController.searchBar.placeholder=@"搜索";
+    self.tableView.tableHeaderView = searchController.searchBar;
+}
+-(IBAction)showMenu:(UIButton *)sender{
+    CGPoint point =
+    CGPointMake(sender.frame.origin.x + sender.frame.size.width / 2,
+                64.0 + 3.0);
+    NSArray *titles = @[@"被动生物", @"中立生物",@"敌对生物",@"四季Boss",@"全部"];
+    PopoverView *pop = [[PopoverView alloc] initWithPoint:point
+                                                   titles:titles
+                                               imageNames:nil];
+    pop.delegate = self;
+    [pop show];
+}
+- (void)didSelectedRowAtIndex:(NSInteger)index {
+    [hud show:YES];
+    [list removeAllObjects];
+    if (index == 0) {
+        self.title=@"被动生物";
+        list =[db getStarveByType:@"2" andTag:@"0"];
+    }else if(index == 1) {
+        self.title=@"中立生物";
+        list =[db getStarveByType:@"2" andTag:@"1"];
+    }else if(index == 2) {
+        self.title=@"敌对生物";
+        list =[db getStarveByType:@"2" andTag:@"2"];
+    }else if(index == 3) {
+        self.title=@"四季Boss";
+        list =[db getStarveByType:@"2" andTag:@"3"];
+    }else if(index == 4) {
+        self.title=@"生物大全";
+        list = [db getStarveByType:@"2"];
+    }
+    [self.tableView reloadData];
+    [hud hide:YES];
 }
 -(IBAction)showHint:(id)sender{
     flag = !flag;
@@ -71,6 +118,7 @@
     UILabel *nameLabel =(UILabel*)[cell viewWithTag:1];
     UIImageView *image=(UIImageView*)[cell viewWithTag:2];
     UILabel *contentLabel=(UILabel*)[cell viewWithTag:3];
+    UILabel *tagLabel=(UILabel*)[cell viewWithTag:4];
     if(nameLabel==nil){
         nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 4, width, 22)];
         nameLabel.lineBreakMode=NSLineBreakByWordWrapping;
@@ -91,27 +139,35 @@
         contentLabel.tag=3;
         [cell addSubview:contentLabel];
     }
+    if(tagLabel==nil){
+        tagLabel = [[UILabel alloc] init];
+        tagLabel.lineBreakMode=NSLineBreakByWordWrapping;
+        tagLabel.numberOfLines=0;
+        tagLabel.font = [UIFont fontWithName:@"Arial" size:12.0f];
+        tagLabel.tag=4;
+        [cell addSubview:tagLabel];
+    }
     DataBean *bean = [list objectAtIndex:indexPath.row];
     if(flag){
         [nameLabel removeFromSuperview];
         [image removeFromSuperview];
         [contentLabel removeFromSuperview];
         cell.imageView.image=[UIImage imageNamed:bean.image];
-        cell.textLabel.text=[NSString stringWithFormat:@"%@(%@)",bean.name,bean.enName];
+        cell.textLabel.text=[NSString stringWithFormat:@"%@",bean.name];
     }else{
         
         if(bean){
-            nameLabel.text = [NSString stringWithFormat:@"%@(%@)",bean.name,bean.enName];
+            nameLabel.text = [NSString stringWithFormat:@"%@",bean.name];
             if(![Common isEmptyString:bean.image]){
                 image.image = [UIImage imageNamed:bean.image];
             }
             if(![Common isEmptyString:bean.content]){
-                CGSize size = [bean.content sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont fontWithName:@"Arial" size:12.0f] forKey:NSFontAttributeName]];
-                CGFloat line = size.width/width;
-                line = [Common clcLine:line];
-                contentLabel.frame=CGRectMake(50, 30, width, size.height*line);
+                CGSize size = [bean.content sizeWithFont:[UIFont fontWithName:@"Arial" size:12.0f] constrainedToSize:CGSizeMake(width, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+                contentLabel.frame=CGRectMake(50, 30, width, size.height);
                 contentLabel.text = bean.content;
-                image.frame = CGRectMake(4, (size.height*line-10)/2, 40, 40);
+                image.frame = CGRectMake(4, (size.height+10)/2, 40, 40);
+                tagLabel.frame=CGRectMake(50, size.height+35, width, 20);
+                tagLabel.text = [NSString stringWithFormat:@"生命%@,攻击%@,攻击间隔%@",bean.p1,bean.p2,bean.p3];;
             }else{
                 image.frame = CGRectMake(8, 2, 40, 40);
             }
@@ -128,15 +184,20 @@
     DataBean *bean = [list objectAtIndex:indexPath.row];
     if(bean){
         if(![Common isEmptyString:bean.content]){
-            CGSize size = [bean.content sizeWithAttributes:[NSDictionary dictionaryWithObject:[UIFont fontWithName:@"Arial" size:12.0f] forKey:NSFontAttributeName]];
-            CGFloat line = size.width/width;
-            line = [Common clcLine:line];
-            return size.height*line+40;
+            CGSize size = [bean.content sizeWithFont:[UIFont fontWithName:@"Arial" size:12.0f] constrainedToSize:CGSizeMake(width, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+    
+            return size.height+60;
         }
     }
     
     return 44;
 }
-
+-(void)updateSearchResultsForSearchController:(UISearchController *)sController {
+    NSString *searchString = [searchController.searchBar text];
+    if(![Common isEmptyString:searchString]){
+        list = [db getStarveByType:@"2" andKey:searchString];
+        [self.tableView reloadData];
+    }
+}
 
 @end
