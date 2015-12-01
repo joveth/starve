@@ -20,8 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"新手攻略";
-    list = [NSArray arrayWithObjects:@"新手攻略一",@"新手攻略二",@"新手百天攻略",@"新手简单过寒冬",@"最实用的5个食谱",@"四季boss攻略一",@"四季boss攻略二",@"常见boss攻略", nil];
-    htmls = [NSArray arrayWithObjects:@"b0",@"b3",@"b1",@"b2",@"b4",@"b5",@"b6",@"b7", nil];
+    list = [NSArray arrayWithObjects:@"新手攻略一",@"新手攻略二",@"新手百天攻略",@"新手简单过寒冬",@"最实用的5个食谱",@"四季boss攻略一",@"四季boss攻略二",@"常见boss攻略",@"游戏介绍", nil];
+    htmls = [NSArray arrayWithObjects:@"b0",@"b3",@"b1",@"b2",@"b4",@"b5",@"b6",@"b7",@"baseinfor" ,nil];
     self.tableView.tableFooterView=[[UIView alloc] init];
 }
 

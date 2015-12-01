@@ -187,12 +187,14 @@
     
     UIView *b7 = [[UIView alloc] initWithFrame:CGRectMake(avgWidth, 10, avgWidth, 90)];
     UIImageView *i7 = [[UIImageView alloc] initWithFrame:CGRectMake( (avgWidth-50)/2, 10, 50, 50)];
-    i7.image = [UIImage imageNamed:@"infor"];
+    temImg=CGImageCreateWithImageInRect(img.CGImage, CGRectMake(704, 128, 64, 64));
+    UIImage *pic02 = [UIImage imageWithCGImage:temImg];
+    i7.image = pic02;
     UILabel *l7 = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, avgWidth, 25)];
     l7.font=[UIFont systemFontOfSize:16];
     l7.textColor=[UIColor blackColor];
     l7.textAlignment=NSTextAlignmentCenter;
-    l7.text=@"基础说明";
+    l7.text=@"食谱模拟器";
     [b7 addSubview:i7];
     [b7 addSubview:l7];
     b7.tag=tag++;
@@ -351,12 +353,7 @@
             break;
         }
         case 8:{
-            WebController *show = [[WebController alloc] init];
-            [ShareData shareInstance].urltype=nil;
-            DataBean *bean = [[DataBean alloc] init];
-            bean.html =@"baseinfor";
-            bean.name=@"基础说明";
-            [ShareData shareInstance].bean=bean;
+            SimulatorController *show = [[SimulatorController alloc] init];
             [self.navigationController pushViewController:show animated:YES];
             break;
         }

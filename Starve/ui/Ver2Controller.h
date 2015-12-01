@@ -19,6 +19,8 @@
 #import "QuickLookController.h"
 #import "WebController.h"
 #import "TutController.h"
+#import "SimulatorController.h"
+
 @interface Ver2Controller : UIViewController<UIGestureRecognizerDelegate>
 
 @end
