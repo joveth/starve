@@ -48,11 +48,8 @@
     UIView *b0 = [[UIView alloc] initWithFrame:CGRectMake(0, 10, avgWidth, 90)];
     UIImageView *i0 = [[UIImageView alloc] initWithFrame:CGRectMake( (avgWidth-55)/2, 10, 55, 55)];
     i0.image = [UIImage imageNamed:@"p_Wilson"];
-//    i0.backgroundColor=[UIColor whiteColor];
-//    i0.layer.cornerRadius=30;
-//    i0.layer.masksToBounds=YES;
     UILabel *l0 = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, avgWidth, 25)];
-    l0.font=[UIFont systemFontOfSize:16 weight:2];
+    l0.font=[UIFont systemFontOfSize:18];
     l0.textColor=[UIColor whiteColor];
     l0.textAlignment=NSTextAlignmentCenter;
     l0.text=@"人物";
@@ -64,7 +61,7 @@
     tap0.delegate = self;
     [b0 addGestureRecognizer:tap0];
     [topView addSubview:b0];
-    
+
     //原图片
     UIImage * img = [UIImage imageNamed:@"all.png"];
     //转化为位图
@@ -77,7 +74,7 @@
     UIImageView *i1 = [[UIImageView alloc] initWithFrame:CGRectMake( (avgWidth-55)/2, 10, 55, 55)];
     i1.image = pic0;
     UILabel *l1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, avgWidth, 25)];
-    l1.font=[UIFont systemFontOfSize:18 weight:2];
+    l1.font=[UIFont systemFontOfSize:18 ];
     l1.textColor=[UIColor whiteColor];
     l1.textAlignment=NSTextAlignmentCenter;
     l1.text=@"生物";
@@ -96,7 +93,7 @@
     UIImageView *i2 = [[UIImageView alloc] initWithFrame:CGRectMake( (avgWidth-55)/2, 10, 55, 55)];
     i2.image = pic01;
     UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, avgWidth, 25)];
-    l2.font=[UIFont systemFontOfSize:18 weight:2];
+    l2.font=[UIFont systemFontOfSize:18 ];
     l2.textColor=[UIColor whiteColor];
     l2.textAlignment=NSTextAlignmentCenter;
     l2.text=@"食谱";
